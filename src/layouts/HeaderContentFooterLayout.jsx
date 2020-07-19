@@ -6,6 +6,8 @@ const useStyles = makeStyles(theme => ({
   headerContentFooterLayout: {
     display: 'flex',
     flexDirection: 'column',
+    flex: 1,
+    height: '100vh', // required to fill screen vertically
   },
 }))
 

@@ -60,7 +60,14 @@ const App = props => {
       <ThemeProvider theme={theme}>
         <Router>
           <Switch>
-            <RouteWrapper exact path="/" content={Homepage} layout={EmptyLayout} />
+            <RouteWrapper
+              exact
+              path="/"
+              header={Header}
+              content={Homepage}
+              footer={Footer}
+              layout={HeaderContentFooterLayout}
+            />
             <RouteWrapper exact path="/dashboard" content={Dashboard} layout={EmptyLayout} />
             <RouteWrapper exact path="/team" content={Team} layout={EmptyLayout} />
             <RouteWrapper
