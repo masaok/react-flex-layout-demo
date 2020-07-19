@@ -1,11 +1,22 @@
 import React from 'react'
-import logo from './logo.svg'
-import './App.css'
-
-import { ThemeProvider } from '@material-ui/styles'
+import { BrowserRouter as Router, Switch } from 'react-router-dom'
 import { makeStyles, createMuiTheme } from '@material-ui/core/styles'
 
 import CssBaseline from '@material-ui/core/CssBaseline'
+import ThemeProvider from '@material-ui/styles/ThemeProvider'
+
+import Header from './components/Header'
+import Footer from './components/Footer'
+
+import Dashboard from './pages/Dashboard'
+import Homepage from './pages/Homepage'
+import Team from './pages/Team'
+import Terms from './pages/Terms'
+
+import EmptyLayout from './layouts/EmptyLayout'
+import HeaderContentFooterLayout from './layouts/HeaderContentFooterLayout'
+
+import RouteWrapper from './routes/RouteWrapper'
 
 // Override the default MUI theme:
 // https://material-ui.com/customization/default-theme/
@@ -34,19 +45,12 @@ const useStyles = makeStyles(theme => ({
     backgroundColor: '#282c34', // default overrides don't work here?
     display: 'flex',
     flexGrow: 1,
-
-    // Position fixed tip: https://stackoverflow.com/a/4069794
-    position: 'fixed',
-    top: theme.spacing(8),
-    bottom: theme.spacing(8),
-    width: '100vw',
-    justifyContent: 'center',
-    overflow: 'auto', // scroll if necessary on all scrolling demo pages
   },
 }))
 
 const App = props => {
   const classes = useStyles(props)
+  console.log(classes)
 
   return (
     <>
@@ -54,17 +58,21 @@ const App = props => {
       {/* https://material-ui.com/components/css-baseline/ */}
       <CssBaseline />
       <ThemeProvider theme={theme}>
-        <div className={classes.app}>
-          <header className="App-header">
-            <img src={logo} className="App-logo" alt="logo" />
-            <p>
-              Edit <code>src/App.js</code> and save to reload.
-            </p>
-            <a className="App-link" href="https://reactjs.org" target="_blank" rel="noopener noreferrer">
-              Learn React
-            </a>
-          </header>
-        </div>
+        <Router>
+          <Switch>
+            <RouteWrapper exact path="/" content={Homepage} layout={EmptyLayout} />
+            <RouteWrapper exact path="/dashboard" content={Dashboard} layout={EmptyLayout} />
+            <RouteWrapper exact path="/team" content={Team} layout={EmptyLayout} />
+            <RouteWrapper
+              exact
+              path="/terms"
+              header={Header}
+              content={Terms}
+              footer={Footer}
+              layout={HeaderContentFooterLayout}
+            />
+          </Switch>
+        </Router>
       </ThemeProvider>
     </>
   )
